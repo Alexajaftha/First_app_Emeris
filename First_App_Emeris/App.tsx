@@ -1,28 +1,102 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { TextInput } from 'react-native';
+import { Button, StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import { useState} from 'react' ;
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 export default function App() {
+
+ const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Welcome!</Text>
-      <Text>Enter your name!</Text>
-      <TextInput placeholder='Jane'/>
-      <Text>Enter your surname!</Text>
-      <TextInput placeholder='Doe'/>
-      <StatusBar style="auto" />
-      
-      <Button title='Add User'/>
-    </View>
+    <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={MainScreen} />
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
+
+function MainScreen() { 
+
+  const [Name, setName] = useState('');
+  const [Surname, setSurname] = useState('');
+
+  console.log("App works!");
+
+  return (
+    <View style={styles.welcomeText}>
+
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize} source={require('./Images/Arrow.webp')} />
+      </View>
+
+      <Text style={styles.welcomeText}>Welcome!</Text>
+
+       <View style={styles.InputFlex}>
+       <Text style= {styles.label}>Enter your name!</Text>
+       <TextInput placeholder='Jane'
+       onChangeText={newText => setName(newText)}/>
+
+       
+       <Text style= {styles.label}>Enter your surname!</Text>
+       <TextInput placeholder='Doe'
+       onChangeText={newText => setSurname(newText)}/>
+       </View>
+      
+
+       <Button title = 'Add User' 
+       onPress={() => {
+         console.log("Name: " + Name + ","+ " Surname: " + Surname)
+         }}/>
+
+       <StatusBar style="auto" />
+      
+    
+    </View>
+
+  );
+}
+
+
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#7aa7ca',
-    alignItems: 'center',
+ welcomeText: {
+  paddingTop: 30,
+  color: 'lightblue', 
+  fontWeight: 'bold',
+  fontSize: 28, 
+  textAlign: 'center'
+
+ },
+
+ line: {
+  borderBottomColor: 'black',
+  borderBottomWidth: 1,
+  width: '100%',
+  marginVertical: 10,
+
+ },
+
+ label: {
+  fontWeight: 'bold',
+ },
+
+  mainPicture: {
+    paddingTop: 30,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
+  ImageSize: {
+    width: 350,
+    height: 350,
+  },
+
+  InputFlex: {
+    flexDirection: 'row',
+    marginTop: 10,
   },
 });
