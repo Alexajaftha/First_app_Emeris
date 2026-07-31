@@ -38,12 +38,14 @@ function MainScreen() {
        <View style={styles.InputFlex}>
        <Text style= {styles.label}>Enter your name!</Text>
        <TextInput placeholder='Jane'
-       onChangeText={newText => setName(newText)}/>
+       autoCapitalize="words"
+       onChangeText={newText => setName(newText.replace(/[^a-zA-Z ]/g, ""))}/>
 
        
        <Text style= {styles.label}>Enter your surname!</Text>
        <TextInput placeholder='Doe'
-       onChangeText={newText => setSurname(newText)}/>
+       autoCapitalize="words"
+       onChangeText={newText => setSurname(newText.replace(/[^a-zA-Z ]/g, ""))}/>
        </View>
       
 
