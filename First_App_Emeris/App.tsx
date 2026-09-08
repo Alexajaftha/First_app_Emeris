@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, TextInput, Image, SafeAreaView, ScrollView, Animated, ViewStyle, StyleProp, ImageSourcePropType } from 'react-native';
+import { Button, StyleSheet, Text, View, TextInput, Image, SafeAreaView, ScrollView, Animated, ViewStyle, StyleProp, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import { useState, useRef, useEffect, ReactNode } from 'react' ;
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -65,7 +65,7 @@ function MainScreen({ navigation }: MainscreenProps) {
       <SafeAreaView>
       <ScrollView>
         <Image style={styles.mainImg}
-        source={require('./Images/Arrow.webp')} />
+        source={require('./Images/react native image.png')} />
 
         <Text style={styles.welcomeTxt}>Welcome!</Text>
 
@@ -180,7 +180,7 @@ function ViewDetails({ navigation, route }: ViewDetailsProps){
 
             switch (selectedValue) {
               case "1":
-                setImage(require('./Images/ReactNative.webp'));
+                setImage(require('./Images/react native image.png'));
                 break;
               case "2":
                 setImage(require('./Images/Kotlin.webp'));
@@ -206,17 +206,34 @@ function ViewDetails({ navigation, route }: ViewDetailsProps){
 
 
 function ListSkills({ navigation, route }: ListSkillsProps) {
-  const [Skills] = useState<string[]>([]);
+  const [Skills, setSkills] = useState<string[]>([]);
   const [txtSkill, setSkill] = useState('');
+
+
+  const removeSkillHandler = (index: number) => {
+    setSkills((currentSkills) => currentSkills.filter((skill, i) => i !== index));
+
+  }
+
 
   const renderSkills = () => {
     const arrOutput = [];
 
     for (let i = 0; i < Skills.length; i++) {
       arrOutput.push(
-        <Text key={i} style={styles.skillText}>
+
+        <View key={i} style={styles.inputContainer }>
+        <Text style={styles.skillText}>
           {Skills[i]}
         </Text>
+
+        <TouchableOpacity onPress= {() => removeSkillHandler (i)} style={styles.deleteBtn}>
+          <Text style={styles.deleteBtnTxt}>Remove</Text>
+
+        </TouchableOpacity>
+
+
+        </View>
       )
     }
     return arrOutput;
@@ -448,5 +465,15 @@ const styles = StyleSheet.create({
 
  },
 
+deleteBtn:{
+  backgroundColor: '#d14f4f' ,
+  padding: 5,
+  borderRadius: 5
+},
+
+deleteBtnTxt: {
+color: 'white',
+fontWeight: 'bold'
+}
 
 });
