@@ -271,8 +271,8 @@ function ListSkills({ navigation, route }: ListSkillsProps) {
          </SafeAreaView>
        </View>
       </View>
-    )
-  }
+    );
+  };
           
 
 
