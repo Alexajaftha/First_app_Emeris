@@ -183,10 +183,10 @@ function ViewDetails({ navigation, route }: ViewDetailsProps){
                 setImage(require('./Images/react native image.png'));
                 break;
               case "2":
-                setImage(require('./Images/Kotlin.webp'));
+                setImage(require('./Images/Kotlin image.png'));
                 break;
               case "3":
-                setImage(require('./Images/HTML.webp'));
+                setImage(require('./Images/HTML image.png'));
                 break;
               default:
                 setImage(undefined);
